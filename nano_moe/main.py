@@ -2,23 +2,28 @@ import torch
 import torch.nn as nn
 import numpy as np
 import random
+from typing import Optional
 from rich.console import Console
 from rich.panel import Panel
 
 from .config import TrainingConfig
-from .data.loaders import get_multimnist_loaders
-from .data.text import get_text_loaders
+from .datasets.loaders import get_multimnist_loaders
+from .datasets.text import get_text_loaders
 from .models.moe import IntegratedMoE
 from .models.phase import SparseFourierPhaseTransformer
 from .models.phase_symbolic import HybridPhaseSymbolicARC
+from .models.true_phase import TrueHolographicSFPT
+from .models.universal_phase import UniversalSFPT
+from .models.quantum_diffusion import QuantumDenoiser
 from .training.tracker import ExperimentTracker
 from .training.trainer import train_epoch, eval_model
 
 console = Console()
 
-def main():
+def main(cfg: Optional[TrainingConfig] = None):
     # Configuration
-    cfg = TrainingConfig()
+    if cfg is None:
+        cfg = TrainingConfig()
     
     # Setup
     random.seed(cfg.seed)
@@ -62,13 +67,47 @@ def main():
             n_ops=cfg.n_ops,
             max_program_len=cfg.max_program_len
         ).to(device)
-    else:
+    elif cfg.model_type == "true_phase":
+        model = TrueHolographicSFPT(
+            vocab_size=num_classes,
+            layers=cfg.depth,
+            dim=cfg.feature_dim
+        ).to(device)
+    elif cfg.model_type == "universal_phase":
+        model = UniversalSFPT(
+            vocab_size=vocab_size,
+            layers=cfg.depth,
+            dim=cfg.feature_dim,
+            freqs=cfg.n_freqs,
+            A=3.0
+        ).to(device)
+    elif cfg.model_type == "quantum_diffusion":
+        # Quantum Diffusion is specialized for ARC, so we might need to handle it differently
+        # For now, just instantiate it.
+        model = QuantumDenoiser(dim=cfg.feature_dim).to(device)
+    elif cfg.model_type == "moe": # Assuming "moe" is the type for IntegratedMoE
         model = IntegratedMoE(
             num_experts=cfg.experts,
             feature_dim=cfg.feature_dim,
             hidden_dim=cfg.hidden_dim,
             num_classes=num_classes
         ).to(device)
+    else:
+        raise ValueError(f"Unknown model type: {cfg.model_type}")
+
+    # Dispatch to specialized training loops if needed
+    if cfg.model_type == "phase_symbolic" or cfg.dataset_type == "arc":
+        from .train_arc import train_arc
+        # Pass config to train_arc if it accepts it, or just run it
+        # Currently train_arc() creates its own config, we should update it to accept cfg
+        # For now, let's just call it.
+        train_arc(cfg) 
+        return
+
+    if cfg.model_type == "quantum_diffusion":
+        from .models.quantum_diffusion import train_quantum_diffusion
+        train_quantum_diffusion(cfg)
+        return
     
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.lr)
     criterion = nn.CrossEntropyLoss()

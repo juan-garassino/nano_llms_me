@@ -1,62 +1,115 @@
-# nano_moe 🧬
+# nano_moe 🌐✨
 
-**Physics-Inspired Neuro-Symbolic AI for Abstract Reasoning**
+**A Complete AI Research Lab: From Abstract Reasoning to Multimodal Generation**
 
-`nano_moe` is a research framework that pushes the boundaries of neural network design by replacing standard attention mechanisms with **Sparse Fourier Phase Transformers (SFPT)** and integrating **symbolic program synthesis** for abstract reasoning tasks like ARC-AGI.
-
----
-
-## 🎯 What Makes This Special?
-
-Most AI today is built on **arithmetic** (matrix multiplication). This project is built on **physics** (wave interference, phase shifts, frequency decomposition).
-
-### The Core Insight
-
-> **In the Fourier domain, complex geometric transformations (rotations, reflections) become simple phase shifts.**
-
-This means our models can learn **global symmetries** with $O(1)$ complexity, whereas standard CNNs or Vision Transformers need deep layers to "emerge" these patterns.
+`nano_moe` is a comprehensive research framework that combines physics-inspired neural architectures, symbolic reasoning, evolutionary optimization, and state-of-the-art multimodal AI into a single unified package.
 
 ---
 
-## 🏗️ Architecture
+## 🎯 Vision: The Full AI Lab
 
-### 1. **Sparse Fourier Phase Transformer (SFPT)**
-- **Frequency-domain attention** using DFT/FFT
-- **Top-k sparse selection** of frequency modes
-- **Phase-based reasoning** for geometric transformations
-- Supports both **image** (via patch projection) and **text** (via BPE tokenization) inputs
+This isn't just another deep learning framework — it's a **complete AI research laboratory** covering:
 
-### 2. **Hybrid Phase-Symbolic Reasoning**
-- **Phase Operators**: Learnable transformations in frequency space
-- **Program Synthesizer**: Composes operators into executable "programs"
-- **Differentiable search**: Learns both operators and composition via backpropagation
-- Designed specifically for **ARC-AGI** (Abstract Reasoning Corpus)
+| Domain | Capabilities | Models |
+|--------|--------------|--------|
+| 🧠 **Abstract Reasoning** | Geometric transformations, program synthesis | Phase-Symbolic ARC |
+| 📝 **Language** | Text generation, sequence modeling | SFPT, Decoder-only LM |
+| 🖼️ **Vision-Language** | Image-text alignment, retrieval | CLIP |
+| 🎨 **Generation** | Text-to-image, image-to-image | DDPM, Latent Diffusion |
+| 💬 **Multimodal** | Joint vision-language-generation | NanoMultimodal |
+| 🧬 **Optimization** | Gradient-free search, meta-learning | ES, CMA-ES, GA |
 
-### 3. **Mixture of Experts (MoE) with Reflective Attention**
-- **Continuous Attention Backbone**: S4-inspired state-space model for sequence modeling
-- **Reflective Reasoning Block**: Iterative "thinking" mechanism with energy-based feedback
-- **Sparse Expert Routing**: Top-k gating with load balancing and usage tracking
+---
+
+## 🌟 What Makes This Special?
+
+### 1. **Physics-Inspired Architecture**
+Most AI is built on **arithmetic**. We build on **physics**:
+- **Fourier domain reasoning**: Complex transformations become simple phase shifts
+- **Frequency-based attention**: Global patterns learned in $O(1)$ complexity
+- **Wave interference**: Natural mechanism for superposition and composition
+
+### 2. **Unified Multimodal System**
+Train a **single model** that can:
+- Generate images from text (diffusion)
+- Generate text from images (captioning)
+- Align vision and language (CLIP)
+- Generate text continuations (LM)
+- Transform images with text guidance (I2I)
+
+### 3. **Creative Generation Features**
+- **🌀 Dual Oscillation**: Generate images that blend two concepts using 180° rotation during denoising
+- **DDIM Sampling**: Fast deterministic generation
+- **Classifier-Free Guidance**: Improved conditional generation
+
+### 4. **Gradient-Free Optimization**
+- **Evolution Strategies**: Optimize neural networks without backprop
+- **CMA-ES**: Hyperparameter tuning
+- **Genetic Algorithms**: Evolve discrete structures (operator libraries)
+
+---
+
+## 🏗️ Core Architectures
+
+### **Sparse Fourier Phase Transformer (SFPT)**
+```python
+# Frequency-domain attention for images and text
+- DFT/FFT-based reasoning
+- Top-k sparse mode selection
+- Phase-based geometric transformations
+- Supports: Images (patches), Text (BPE tokens)
+```
+
+### **Hybrid Phase-Symbolic Reasoning**
+```python
+# Program synthesis for abstract reasoning (ARC-AGI)
+- Learnable phase operators
+- Differentiable program composition
+- Meta-learning from few demonstrations
+- Geometric transformation library
+```
+
+### **NanoMultimodal (4-in-1 Model)**
+```python
+# Joint training with 4 objectives:
+1. CLIP contrastive (image ↔ text)
+2. Image captioning (image → text)
+3. Text-to-image diffusion (text → image)
+4. Language modeling (text → text)
+```
+
+### **Mixture of Experts + Reflective Attention**
+```python
+# Sparse expert routing with iterative reasoning
+- S4-inspired continuous attention
+- Energy-based thinking mechanism
+- Load-balanced top-k gating
+```
 
 ---
 
 ## 🚀 Features
 
 ### Training Methods
-- ✅ **Standard Supervised Learning** (Cross-Entropy)
-- ✅ **GRPO** (Group Relative Policy Optimization) - RL for text generation
-- ✅ **Distillation** (teacher-student knowledge transfer)
-- ✅ **Evolutionary Strategies** (OpenAI-ES, CMA-ES, Genetic Algorithms)
-- ✅ **Meta-Learning** for ARC (few-shot program synthesis)
+- ✅ **Supervised Learning** (Cross-Entropy)
+- ✅ **GRPO** (Group Relative Policy Optimization)
+- ✅ **Knowledge Distillation** (Teacher-Student)
+- ✅ **Contrastive Learning** (CLIP-style)
+- ✅ **Diffusion Training** (DDPM, LDM, DDIM)
+- ✅ **Evolutionary Strategies** (OpenAI-ES, CMA-ES, GA)
+- ✅ **Meta-Learning** (Few-shot program synthesis)
 
 ### Inference Strategies
-- ✅ **System-2 Reasoning** (multi-pass refinement)
-- ✅ **Active Inference** (particle-based generation with free energy minimization)
-- ✅ **Adaptive Test-Time Compute** (entropy-aware retry mechanism)
-- ✅ **Speculative Decoding** (draft-verifier acceleration)
+- ✅ **System-2 Reasoning** (Multi-pass refinement)
+- ✅ **Active Inference** (Free energy minimization)
+- ✅ **Adaptive Test-Time Compute** (Entropy-aware retry)
+- ✅ **Speculative Decoding** (Draft-verifier acceleration)
+- ✅ **DDIM Sampling** (Fast deterministic generation)
+- ✅ **Classifier-Free Guidance** (Conditional scaling)
 
 ### Model Compression
-- ✅ **Pruning** (L1 unstructured global pruning)
-- ✅ **Quantization** (int8 dynamic, fp16)
+- ✅ **Pruning** (L1 unstructured global)
+- ✅ **Quantization** (int8, fp16)
 
 ---
 
@@ -68,9 +121,9 @@ git clone <repo-url>
 cd nano_llms_me
 
 # Install dependencies
-pip install torch torchvision transformers datasets rich matplotlib seaborn
+pip install torch torchvision transformers datasets rich matplotlib seaborn einops
 
-# (Optional) Fix NumPy version mismatch if you encounter warnings
+# Fix NumPy version mismatch (if needed)
 pip install "numpy<2"
 ```
 
@@ -81,74 +134,124 @@ pip install "numpy<2"
 ### Run Demos
 
 ```bash
-# Train SFPT on Tiny Shakespeare (text generation)
-make demo-shakespeare
-
-# Train Hybrid Phase-Symbolic model on ARC-AGI (abstract reasoning)
+# Abstract Reasoning (ARC-AGI)
 make demo-arc
 
-# Evolutionary Strategies demo (ES, CMA-ES, GA)
+# Text Generation (Tiny Shakespeare)
+make demo-shakespeare
+
+# Vision-Language (CLIP)
+make demo-clip
+
+# Text-to-Image (Diffusion + Oscillation)
+make demo-diffusion
+
+# Full Multimodal (All capabilities)
+make demo-multimodal
+
+# Evolutionary Strategies
 make demo-evolution
 ```
 
 ### Interactive Notebooks
 
 ```bash
-jupyter notebook notebooks/Train_Shakespeare.ipynb  # SFPT for text
-jupyter notebook notebooks/Train_ARC.ipynb          # Phase-Symbolic for ARC
+# Text generation with SFPT
+jupyter notebook notebooks/Train_Shakespeare.ipynb
+
+# Abstract reasoning with Phase-Symbolic
+jupyter notebook notebooks/Train_ARC.ipynb
+
+# Multimodal training & inference (with oscillation!)
+jupyter notebook notebooks/Train_Multimodal.ipynb
 ```
 
 ---
 
-## 🧪 Example: Training SFPT on Text
+## 🌐 Example: Multimodal Training
 
 ```python
-from nano_moe.config import TrainingConfig
-from nano_moe.data.text import get_text_loaders
-from nano_moe.models.phase import SparseFourierPhaseTransformer
-from nano_moe.training.trainer import train_epoch, eval_model
+from nano_moe.train_multimodal import train_joint, text_to_image, image_to_text
 
-# Configuration
-cfg = TrainingConfig()
-cfg.dataset_type = "text"
-cfg.model_type = "sfpt"
-
-# Load data
-loaders, vocab_size = get_text_loaders("tinyshakespeare", batch_size=32, seq_len=128)
-
-# Initialize model
-model = SparseFourierPhaseTransformer(
-    vocab_size=vocab_size,
-    dim=256,
-    depth=6,
-    n_heads=8,
-    n_freqs=64,
-    top_k=32
+# Train joint model (CLIP + Captioning + Diffusion + LM)
+model, train_ds, val_ds = train_joint(
+    epochs=2,
+    batch_size=128,
+    use_latent=True,  # Use VAE + Latent Diffusion
+    vae=pretrained_vae
 )
 
-# Train
-optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
-train_epoch(model, loaders, optimizer, criterion, device, ["tinyshakespeare"], tracker, epoch=1)
+# Generate images from text
+imgs = text_to_image(model, "a stylish sneaker", train_ds.stoi, n=8, guide_w=2.0)
+
+# Generate captions from images
+captions = image_to_text(model, imgs, train_ds.itos)
+
+# Transform images with text guidance
+result = image_to_image(model, imgs[0], train_ds.stoi, text="an elegant dress", strength=0.6)
 ```
 
 ---
 
-## 🧠 Example: Evolving ARC Operator Libraries
+## 🌀 Special Feature: Dual Oscillation
+
+Generate images that **blend two concepts** using creative 180° rotation during denoising:
+
+```python
+# Generate image oscillating between two classes
+result = model.diff.dual_oscillation(
+    size=(4, 8, 8),        # Latent size
+    class_a=5,             # Sandal
+    class_b=7,             # Sneaker
+    guide_weight=2.0,
+    flip_every=50,         # Rotate every 50 steps
+    n_classes=10
+)
+
+# Decode latent to image
+img = model.vae.decode(result)
+# Result: Creative blend of sandal + sneaker!
+```
+
+This creates **artistic hybrid visualizations** that standard diffusion can't produce.
+
+---
+
+## 🎨 Example: Text-to-Image with CLIP Bridge
+
+```python
+from nano_moe.train_diffusion import train_diffusion, text_to_image
+
+# Train diffusion model
+diffusion, vae = train_diffusion(
+    use_latent=True,      # Latent diffusion (faster)
+    epochs=3,
+    guide_weight=2.5
+)
+
+# Load CLIP text encoder for conditioning
+from nano_moe.models.clip import EnhancedTextEncoder
+txt_enc = EnhancedTextEncoder(vocab, emb_dim=128)
+
+# Generate images from text
+query = "a stylish sneaker"
+imgs = text_to_image(query, txt_enc, diffusion, vae, n_samples=6, guide_weight=2.5)
+```
+
+---
+
+## 🧠 Example: Evolving ARC Solutions
 
 ```python
 from nano_moe.training.evolution import genetic_algorithm
 
-# Define genetic operators
-def init_population():
-    return [random_operator_sequence() for _ in range(8)]
-
+# Evolve operator library for ARC
 def fitness(library):
-    # Evaluate on ARC tasks
-    return consistency_score(library, arc_tasks)
+    # Test on ARC validation set
+    return evaluate_arc_library(library, validation_tasks)
 
-# Evolve
 best_library = genetic_algorithm(
-    init_population_fn=init_population,
+    init_population_fn=init_random_operators,
     fitness_fn=fitness,
     mutate_fn=mutate_operator,
     crossover_fn=crossover_libraries,
@@ -163,91 +266,111 @@ best_library = genetic_algorithm(
 
 ```
 nano_moe/
-├── config.py              # TrainingConfig dataclass
-├── main.py                # Entry point for standard training
-├── train_arc.py           # Specialized training for ARC-AGI
-├── inference.py           # Advanced inference strategies
+├── config.py                    # TrainingConfig dataclass
+├── main.py                      # Entry point for standard training
+├── train_arc.py                 # ARC-AGI meta-learning
+├── train_clip.py                # Vision-language training
+├── train_diffusion.py           # Text-to-image generation
+├── train_multimodal.py          # Joint multimodal training
+├── inference.py                 # Advanced inference strategies
+│
 ├── models/
-│   ├── attention.py       # ContinuousAttention (S4-inspired)
-│   ├── reflection.py      # ReflectiveAttentionBlock
-│   ├── moe.py             # Mixture of Experts with routing
-│   ├── phase.py           # Sparse Fourier Phase Transformer
-│   └── phase_symbolic.py  # Hybrid Phase-Symbolic for ARC
+│   ├── attention.py             # ContinuousAttention (S4-inspired)
+│   ├── reflection.py            # ReflectiveAttentionBlock
+│   ├── moe.py                   # Mixture of Experts
+│   ├── phase.py                 # Sparse Fourier Phase Transformer
+│   ├── phase_symbolic.py        # Hybrid Phase-Symbolic (ARC)
+│   ├── clip.py                  # CLIP encoders + contrastive loss
+│   ├── vae.py                   # Variational Autoencoder
+│   ├── diffusion.py             # DDPM, LDM, dual oscillation
+│   └── multimodal.py            # Unified multimodal model
+│
 ├── data/
-│   ├── loaders.py         # Image dataset loaders (MNIST, CIFAR)
-│   ├── text.py            # BPE text loaders (Shakespeare, WikiText)
-│   └── arc.py             # ARC-AGI dataset loader
+│   ├── loaders.py               # Image datasets (MNIST, CIFAR)
+│   ├── text.py                  # BPE text loaders
+│   └── arc.py                   # ARC-AGI dataset
+│
 ├── training/
-│   ├── trainer.py         # Training and evaluation loops
-│   ├── tracker.py         # Experiment tracking and plotting
-│   ├── monitor.py         # TrainingMonitor with rich logging
-│   ├── optimizer.py       # PhaseSignSGD (specialized for phase params)
-│   ├── rl.py              # GRPO and Reward Model
-│   ├── pruning.py         # Pruning and quantization utilities
-│   └── evolution.py       # Evolutionary Strategies (ES, CMA-ES, GA)
-└── utils/                 # Utility functions
+│   ├── trainer.py               # Training loops
+│   ├── tracker.py               # Experiment tracking
+│   ├── monitor.py               # Rich logging
+│   ├── optimizer.py             # PhaseSignSGD
+│   ├── rl.py                    # GRPO, Reward Model
+│   ├── pruning.py               # Compression utilities
+│   ├── evolution.py             # ES, CMA-ES, GA
+│   ├── distillation.py          # Knowledge distillation
+│   └── contrastive.py           # CLIP training utilities
+│
+└── utils/                       # Helper functions
 
 notebooks/
-├── Train_ARC.ipynb        # Interactive ARC training
-└── Train_Shakespeare.ipynb # Interactive text generation
+├── Train_ARC.ipynb              # Interactive ARC demo
+├── Train_Shakespeare.ipynb      # Interactive text generation
+└── Train_Multimodal.ipynb       # Interactive multimodal demo
 
-demo_evolution.py          # Evolutionary Strategies demo
-Makefile                   # Quick demo commands
+demo_evolution.py                # Evolutionary strategies demo
+Makefile                         # Quick command shortcuts
 ```
 
 ---
 
-## 🎯 Use Cases
+## 🎯 Capabilities Matrix
 
-### 1. **ARC-AGI Challenge**
-The `HybridPhaseSymbolicARC` model is specifically designed to solve abstract reasoning puzzles by:
-- Learning a library of geometric operators (rotations, flips, color inversions)
-- Composing them into "programs" that transform input grids to output grids
-- Using meta-learning to generalize from 2-3 demonstrations
-
-### 2. **Text Generation with Physics Priors**
-The SFPT model can capture long-range dependencies in text using frequency-domain attention, potentially outperforming standard Transformers on:
-- Music generation (periodic patterns)
-- Code generation (structured syntax)
-- Mathematical notation (symbolic reasoning)
-
-### 3. **Hyperparameter Optimization**
-Use CMA-ES to optimize learning rates, dropout, attention heads, etc. without relying on expensive grid search.
-
-### 4. **Neural Architecture Search**
-Use Genetic Algorithms to evolve the MoE expert configurations, operator libraries, or even model depth/width.
+| Task | Input | Output | Model | Demo |
+|------|-------|--------|-------|------|
+| **Text Generation** | Text prompt | Continuation | SFPT | `make demo-shakespeare` |
+| **Abstract Reasoning** | Input/output grids | Transform program | Phase-Symbolic | `make demo-arc` |
+| **Vision-Language Retrieval** | Image or text | Matching text/image | CLIP | `make demo-clip` |
+| **Text-to-Image** | Text description | Generated image | DDPM/LDM | `make demo-diffusion` |
+| **Image-to-Text** | Image | Caption | Caption Decoder | `make demo-multimodal` |
+| **Image-to-Image** | Image + text | Transformed image | Guided Diffusion | `make demo-multimodal` |
+| **Text-to-Text** | Text prompt | Continuation | Decoder LM | `make demo-multimodal` |
+| **Dual Oscillation** | Two class IDs | Blended image | Rotation + Diffusion | `make demo-diffusion` |
+| **Hyperparameter Search** | Objective function | Optimal params | CMA-ES | `make demo-evolution` |
+| **Architecture Search** | Task + constraints | Evolved structure | Genetic Algorithm | `make demo-evolution` |
 
 ---
 
 ## 🔬 Research Foundations
 
-This project synthesizes ideas from:
-- **Fourier Neural Operators** (Li et al., 2020) - frequency-domain learning
-- **S4 (Structured State Spaces)** (Gu et al., 2022) - continuous-time sequence models
-- **Perceiver** (Jaegle et al., 2021) - cross-attention for arbitrary inputs
-- **Program Synthesis** (Lake et al., 2015) - learning symbolic transformations
-- **Active Inference** (Friston, 2010) - free energy minimization
-- **Evolution Strategies** (Salimans et al., 2017) - gradient-free optimization
+This project synthesizes cutting-edge research:
+
+**Core Architectures:**
+- [Fourier Neural Operators](https://arxiv.org/abs/2010.08895) (Li et al., 2020)
+- [S4: Structured State Spaces](https://arxiv.org/abs/2111.00396) (Gu et al., 2022)
+- [CLIP](https://arxiv.org/abs/2103.00020) (Radford et al., 2021)
+- [DDPM](https://arxiv.org/abs/2006.11239) (Ho et al., 2020)
+- [Latent Diffusion](https://arxiv.org/abs/2112.10752) (Rombach et al., 2022)
+
+**Training Methods:**
+- [Evolution Strategies](https://arxiv.org/abs/1703.03864) (Salimans et al., 2017)
+- [GRPO](https://arxiv.org/abs/2402.03300) (Shao et al., 2024)
+- [Active Inference](https://www.nature.com/articles/nrn2787) (Friston, 2010)
+
+**Tasks:**
+- [ARC-AGI](https://github.com/fchollet/ARC-AGI) (Chollet, 2019)
 
 ---
 
 ## 🚧 Known Limitations
 
-1. **NumPy Version Conflict**: PyTorch was compiled with NumPy 1.x, but NumPy 2.x is installed. Install `numpy<2` to resolve.
-2. **ARC Operator Library**: Currently randomly initialized. Needs "seeding" with geometric priors or synthetic pre-training.
-3. **Phase Optimization**: The current `PhaseSignSGD` is simplified. True sign-based optimization may improve convergence.
-4. **SFPT for Sharp Edges**: Fourier methods struggle with discontinuities. May need wavelet hybrids for crisp image generation.
+1. **NumPy Version**: PyTorch compiled with NumPy 1.x, install `numpy<2` to resolve warnings
+2. **ARC Operator Library**: Needs geometric priors or synthetic pre-training for better initialization
+3. **SFPT Sharp Edges**: Fourier methods struggle with discontinuities; may need wavelet hybrids
+4. **q_sample/sample_i2i**: Methods exist but need full integration testing for image-to-image workflows
 
 ---
 
 ## 🛠️ Future Work
 
-- [ ] Implement true PhaseSignSGD with phase-specific learning rates
-- [ ] Add seeded operator library with geometric priors
-- [ ] Integrate Mamba-style SSMs for ultra-long sequences
-- [ ] Add KV-cache and Flash Attention for inference speedup
+- [ ] Integrate ControlNet for fine-grained image control
+- [ ] Add LoRA/QLoRA for efficient fine-tuning
+- [ ] Implement Flash Attention for faster training
+- [ ] Add KV-cache for inference speedup
 - [ ] Create Hugging Face model hub integration
 - [ ] Benchmark on ARC-AGI leaderboard
+- [ ] Add Stable Diffusion XL architecture
+- [ ] Integrate Mamba-2 for ultra-long sequences
 
 ---
 
@@ -257,10 +380,11 @@ If you use this code in your research, please cite:
 
 ```bibtex
 @software{nano_moe2025,
-  title={nano_moe: Physics-Inspired Neuro-Symbolic AI},
+  title={nano_moe: A Complete AI Research Lab},
   author={Your Name},
   year={2025},
-  url={https://github.com/yourusername/nano_moe}
+  url={https://github.com/yourusername/nano_moe},
+  note={Physics-inspired neural architectures, multimodal generation, and evolutionary optimization}
 }
 ```
 
@@ -268,13 +392,20 @@ If you use this code in your research, please cite:
 
 ## 🤝 Contributing
 
-This is a research prototype. Contributions, bug reports, and feature requests are welcome!
+This is an active research project. Contributions welcome!
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+**Areas for contribution:**
+- 🎨 New generation models (ControlNet, AnimateDiff)
+- 🧠 New reasoning architectures (Mamba, RWKV)
+- 🔧 Performance optimizations (Flash Attention, quantization)
+- 📊 Benchmarks and evaluations
+- 📚 Documentation and tutorials
 
 ---
 
@@ -286,11 +417,26 @@ MIT License - see LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- **OpenAI** for GPT architecture and ES research
+- **OpenAI** for GPT, CLIP, and Evolution Strategies research
 - **Google DeepMind** for ARC-AGI dataset
-- **Hugging Face** for transformers library
+- **CompVis/Stability AI** for Latent Diffusion Models
+- **Hugging Face** for transformers ecosystem
 - **PyTorch** team for the deep learning framework
 
 ---
 
-**Built with ❤️ for the future of AI reasoning**
+## 🌟 Highlights
+
+> **"The first framework to combine Fourier-domain reasoning, symbolic program synthesis, and multimodal generation in a single unified architecture."**
+
+**Key Innovations:**
+- 🌀 **Dual Oscillation**: Creative image blending via 180° rotation
+- 🧬 **Gradient-Free Optimization**: Evolve neural networks without backprop
+- 🎨 **4-in-1 Multimodal**: Single model for CLIP + Caption + Diffusion + LM
+- 🧠 **Phase-Symbolic Reasoning**: Frequency domain + program synthesis for ARC
+
+---
+
+**Built with ❤️ for the future of AI**
+
+*From abstract reasoning to creative generation — all in one package.*
