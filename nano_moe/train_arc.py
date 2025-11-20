@@ -11,15 +11,16 @@ from .models.phase_symbolic import HybridPhaseSymbolicARC
 # from .training.monitor import TrainingMonitor
 from .training.monitor import TrainingMonitor
 from .inference import system2_reasoning_arc
-from .data.arc import ARCDataset, collate_arc
+from .datasets.arc import ARCDataset, collate_arc
 
 console = Console()
 
-def train_arc():
+def train_arc(cfg=None):
     # Config
-    cfg = TrainingConfig()
-    cfg.model_type = "phase_symbolic"
-    cfg.dataset_type = "arc"
+    if cfg is None:
+        cfg = TrainingConfig()
+        cfg.model_type = "phase_symbolic"
+        cfg.dataset_type = "arc"
     
     # Monitor
     # monitor = TrainingMonitor(experiment_name="arc_phase_symbolic")

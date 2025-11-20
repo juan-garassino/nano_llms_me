@@ -18,7 +18,7 @@ class TrainingConfig:
     num_workers: int = 0
     
     # Model
-    model_type: str = "sfpt" # "moe" or "sfpt" or "phase_symbolic"
+    model_type: str = "moe" # "moe", "phase", "phase_symbolic", "true_phase", "universal_phase", "quantum_diffusion"
     
     # SFPT Params
     n_freqs: int = 2048
