@@ -25,6 +25,8 @@ import torchvision.transforms as T
 from tqdm import tqdm
 from rich.console import Console
 import random
+import os
+import json
 
 console = Console()
 
@@ -398,6 +400,7 @@ def train_joint(epochs=2, batch_size=128, emb_dim=128, steps=200,
         # Save best
         if val_loss < best_val:
             best_val = val_loss
+            os.makedirs("results/multimodal", exist_ok=True)
             torch.save({
                 "model": model.state_dict(),
                 "meta": {
@@ -410,8 +413,18 @@ def train_joint(epochs=2, batch_size=128, emb_dim=128, steps=200,
                     "stoi": train_ds.stoi,
                     "itos": train_ds.itos
                 }
-            }, "nano_multimodal.pt")
-            console.print("[green]✓ Saved best checkpoint[/green]")
+            }, "results/multimodal/nano_multimodal.pt")
+            
+            # Save training log
+            with open("results/multimodal/training_log.json", "w") as f:
+                json.dump({
+                    "epoch": ep,
+                    "best_val_loss": best_val,
+                    "train_metrics": {k: v/n for k, v in train_metrics.items()},
+                    "val_loss": val_loss
+                }, f, indent=2)
+            
+            console.print("[green]✓ Saved best checkpoint to results/multimodal/[/green]")
     
     return model, train_ds, val_ds
 
@@ -546,15 +559,25 @@ def text_to_text(model, prompt, stoi, itos, max_len=16, max_new_tokens=12,
     return result
 
 
-def show_grid(imgs, title=""):
-    """Display image grid."""
+def show_grid(imgs, title="", save_dir="results/multimodal"):
+    """Display and save image grid."""
+    os.makedirs(save_dir, exist_ok=True)
+    
     imgs = imgs.detach().cpu()
     grid = tv.utils.make_grid(imgs, nrow=min(8, imgs.size(0)), normalize=True, value_range=(-1, 1))
+    
     plt.figure(figsize=(10, 4))
     plt.imshow(grid.permute(1, 2, 0).numpy(), cmap="gray")
     plt.title(title)
     plt.axis("off")
-    plt.show()
+    
+    # Save the figure
+    safe_title = title.replace(" ", "_").replace("→", "to").replace("↔", "oscillate").replace('"', "").replace("/", "_")
+    save_path = os.path.join(save_dir, f"{safe_title}.png")
+    plt.savefig(save_path, bbox_inches='tight', dpi=150)
+    plt.close()  # Close to free memory
+    
+    console.print(f"[green]💾 Saved: {save_path}[/green]")
 
 
 # =============================================================================

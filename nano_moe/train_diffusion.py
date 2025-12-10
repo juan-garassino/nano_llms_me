@@ -16,6 +16,7 @@ import torchvision as tv
 import torchvision.transforms as T
 from tqdm import tqdm
 from rich.console import Console
+import os
 
 from nano_moe.models.clip import EnhancedTextEncoder
 from nano_moe.models.diffusion import ContextUnetPixel, ContextUnetLatent, DDPM, LDM
@@ -61,8 +62,9 @@ def train_vae(epochs=2, batch_size=128, lr=1e-3, dataset="fashion", device=DEVIC
             
             pbar.set_postfix(loss=f"{loss.item():.4f}")
     
-    torch.save(vae.state_dict(), "vae.pt")
-    console.print("[green]✓ VAE saved[/green]")
+    os.makedirs("results/diffusion", exist_ok=True)
+    torch.save(vae.state_dict(), "results/diffusion/vae.pt")
+    console.print("[green]✓ VAE saved to results/diffusion/vae.pt[/green]")
     return vae
 
 
@@ -138,8 +140,9 @@ def train_diffusion(use_latent=False, epochs=2, batch_size=128, lr=1e-4,
         
         show_grid(samples, f"Epoch {ep}")
     
-    torch.save(diffusion.state_dict(), "diffusion.pt")
-    console.print("[green]✓ Diffusion saved[/green]")
+    os.makedirs("results/diffusion", exist_ok=True)
+    torch.save(diffusion.state_dict(), "results/diffusion/diffusion.pt")
+    console.print("[green]✓ Diffusion saved to results/diffusion/diffusion.pt[/green]")
     return diffusion, vae if use_latent else None
 
 
@@ -228,15 +231,26 @@ def dual_oscillation(diffusion, class_a=5, class_b=7, vae=None, guide_weight=2.0
     return result
 
 
-def show_grid(imgs, title="Samples"):
-    """Display image grid."""
+def show_grid(imgs, title="Samples", save_dir="results/diffusion"):
+    """Display and save image grid."""
+    # Create output directory
+    os.makedirs(save_dir, exist_ok=True)
+    
     imgs = imgs.detach().cpu()
     grid = tv.utils.make_grid(imgs, nrow=min(8, imgs.size(0)), normalize=True, value_range=(-1, 1))
+    
     plt.figure(figsize=(10, 10))
     plt.imshow(grid.permute(1, 2, 0).numpy(), cmap="gray")
     plt.title(title)
     plt.axis("off")
-    plt.show()
+    
+    # Save the figure
+    safe_title = title.replace(" ", "_").replace("→", "to").replace("↔", "oscillate").replace('"', "").replace("/", "_")
+    save_path = os.path.join(save_dir, f"{safe_title}.png")
+    plt.savefig(save_path, bbox_inches='tight', dpi=150)
+    plt.close()  # Close to free memory in Colab
+    
+    console.print(f"[green]💾 Saved: {save_path}[/green]")
 
 
 def main(use_latent=False, epochs=2, guide_weight=2.0):

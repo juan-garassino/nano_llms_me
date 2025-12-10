@@ -45,4 +45,5 @@ clean:
 	@echo "🧹 Cleaning up..."
 	rm -rf training_outputs/
 	rm -rf integrated_results/
+	rm -rf results/
 	rm -f *.log
