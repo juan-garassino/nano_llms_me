@@ -15,6 +15,7 @@ from .models.phase_symbolic import HybridPhaseSymbolicARC
 from .models.true_phase import TrueHolographicSFPT
 from .models.universal_phase import UniversalSFPT
 from .models.quantum_diffusion import QuantumDenoiser
+from .models.transformer import SimpleTransformer
 from .training.tracker import ExperimentTracker
 from .training.trainer import train_epoch, eval_model
 
@@ -90,12 +91,24 @@ def main(cfg: Optional[TrainingConfig] = None):
         # For now, just instantiate it.
         model = QuantumDenoiser(dim=cfg.feature_dim).to(device)
     elif cfg.model_type == "moe": # Assuming "moe" is the type for IntegratedMoE
-        model = IntegratedMoE(
-            num_experts=cfg.experts,
-            feature_dim=cfg.feature_dim,
-            hidden_dim=cfg.hidden_dim,
-            num_classes=num_classes
-        ).to(device)
+        if cfg.dataset_type == "text":
+            # For text, use standard transformer instead of MoE (which is designed for images)
+            model = SimpleTransformer(
+                vocab_size=num_classes,
+                d_model=cfg.feature_dim,
+                n_heads=cfg.n_heads,
+                n_layers=cfg.depth,
+                d_ff=cfg.hidden_dim,
+                max_len=cfg.seq_len,
+                dropout=0.1
+            ).to(device)
+        else:
+            model = IntegratedMoE(
+                num_experts=cfg.experts,
+                feature_dim=cfg.feature_dim,
+                hidden_dim=cfg.hidden_dim,
+                num_classes=num_classes
+            ).to(device)
     else:
         raise ValueError(f"Unknown model type: {cfg.model_type}")
 
