@@ -88,6 +88,37 @@ def system2_reasoning_arc(model, demos_in, demos_out, test_in, num_samples=8):
     loss = F.cross_entropy(logits.view(-1, 11), demo0_target_exp.view(-1), reduction='none')
     loss = loss.view(B*num_samples, 900).mean(dim=1) # (B*S)
     
+    # Select best program per batch item
+    loss = loss.view(B, num_samples)
+    best_indices = torch.argmin(loss, dim=1) # (B,)
+    
+    # Now apply BEST program to TEST input
+    # We need to extract the specific program steps for the best indices.
+    # This is tricky with the list structure.
+    # Easier: Just re-run the best one? Or index into the batch.
+    
+    # Let's just execute ALL on test, then select the output corresponding to best index.
+    test_in_seq = test_in.view(B, 900)
+    _, freq_test = model.embed(test_in_seq) # (B, 900, F)
+    freq_test_exp = freq_test.repeat_interleave(num_samples, dim=0)
+    
+    test_transformed_freq = model.program_synth.execute_program(freq_test_exp, programs)
+    
+    test_transformed_feat = torch.matmul(test_transformed_freq, model.embed.freq_basis)
+    x_test = test_transformed_feat
+    for block in model.decoder_blocks:
+        x_test = block(x_test, sparse_weights=test_transformed_freq)
+    x_test = model.norm(x_test)
+    test_logits = model.head(x_test) # (B*S, 900, 11)
+    
+    # Select best outputs
+    test_logits = test_logits.view(B, num_samples, 900, 11)
+    # gather
+    best_indices_exp = best_indices.view(B, 1, 1, 1).expand(-1, -1, 900, 11)
+    final_logits = torch.gather(test_logits, 1, best_indices_exp).squeeze(1)
+    
+    return final_logits
+
 
 # -----------------------------------------------------------------------------
 # Advanced Inference Strategies (System-2, Active Inference, TTC, Speculative)
@@ -208,33 +239,3 @@ def speculative_decoding(verifier, draft, start_ids, max_new=64, device="cpu"):
             out = torch.cat([out, v_next], dim=1)
             
     return out[0].tolist()
-    # Select best program per batch item
-    loss = loss.view(B, num_samples)
-    best_indices = torch.argmin(loss, dim=1) # (B,)
-    
-    # Now apply BEST program to TEST input
-    # We need to extract the specific program steps for the best indices.
-    # This is tricky with the list structure.
-    # Easier: Just re-run the best one? Or index into the batch.
-    
-    # Let's just execute ALL on test, then select the output corresponding to best index.
-    test_in_seq = test_in.view(B, 900)
-    _, freq_test = model.embed(test_in_seq) # (B, 900, F)
-    freq_test_exp = freq_test.repeat_interleave(num_samples, dim=0)
-    
-    test_transformed_freq = model.program_synth.execute_program(freq_test_exp, programs)
-    
-    test_transformed_feat = torch.matmul(test_transformed_freq, model.embed.freq_basis)
-    x_test = test_transformed_feat
-    for block in model.decoder_blocks:
-        x_test = block(x_test, sparse_weights=test_transformed_freq)
-    x_test = model.norm(x_test)
-    test_logits = model.head(x_test) # (B*S, 900, 11)
-    
-    # Select best outputs
-    test_logits = test_logits.view(B, num_samples, 900, 11)
-    # gather
-    best_indices_exp = best_indices.view(B, 1, 1, 1).expand(-1, -1, 900, 11)
-    final_logits = torch.gather(test_logits, 1, best_indices_exp).squeeze(1)
-    
-    return final_logits

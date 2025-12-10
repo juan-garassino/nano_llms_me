@@ -158,12 +158,17 @@ class EnhancedTextEncoder(nn.Module):
     def forward(self, texts):
         """
         Args:
-            texts: List of strings
+            texts: List of strings OR tensor of token ids (B, L)
         Returns:
             z: (B, emb_dim) L2-normalized embeddings
         """
         device = self.embed.weight.device
-        toks = torch.stack([self.tokenize(t) for t in texts]).to(device)
+        
+        # Handle both string lists and token tensors
+        if isinstance(texts, torch.Tensor):
+            toks = texts.to(device)
+        else:
+            toks = torch.stack([self.tokenize(t) for t in texts]).to(device)
         
         # Create attention mask for padding
         mask = (toks == 0)
