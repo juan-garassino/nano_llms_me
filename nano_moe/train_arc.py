@@ -29,6 +29,10 @@ def save_arc_predictions(demos_in, demos_out, test_in, test_out, logits, save_di
     test_target = test_out[0].cpu().numpy()
     test_pred = logits[0].argmax(dim=-1).cpu().numpy()
     
+    # Reshape prediction from (900,) to (30, 30) if needed
+    if test_pred.shape == (900,):
+        test_pred = test_pred.reshape(30, 30)
+    
     fig, axes = plt.subplots(1, 5, figsize=(15, 3))
     
     # Demo input
