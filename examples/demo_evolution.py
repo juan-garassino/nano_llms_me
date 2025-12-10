@@ -17,6 +17,9 @@ from nano_moe.training.evolution import (
 from nano_moe.models.moe import IntegratedMoE
 from nano_moe.config import TrainingConfig
 from rich.console import Console
+import os
+import json
+import matplotlib.pyplot as plt
 
 console = Console()
 
@@ -27,6 +30,9 @@ console = Console()
 def demo_es_weights():
     """Demonstrate weight evolution for a small MoE model."""
     console.print("\n[bold cyan]=== Demo 1: OpenAI-ES Weight Evolution ===[/bold cyan]\n")
+    
+    # Create output directory
+    os.makedirs("results/evolution", exist_ok=True)
     
     # Create small model
     cfg = TrainingConfig()
@@ -66,6 +72,37 @@ def demo_es_weights():
     
     console.print(f"[green]Final fitness: {history[-1]:.4f}[/green]")
     console.print(f"[green]Improvement: {history[-1] - history[0]:.4f}[/green]")
+    
+    # Save results
+    torch.save(model.state_dict(), "results/evolution/evolved_moe_weights.pt")
+    
+    # Plot fitness evolution
+    plt.figure(figsize=(10, 6))
+    plt.plot(history)
+    plt.title("OpenAI-ES Weight Evolution")
+    plt.xlabel("Generation")
+    plt.ylabel("Fitness")
+    plt.grid(True)
+    plt.savefig("results/evolution/es_weight_evolution.png", dpi=150, bbox_inches='tight')
+    plt.close()
+    
+    # Save evolution log
+    with open("results/evolution/es_weight_log.json", "w") as f:
+        json.dump({
+            "config": {
+                "population_size": config.population_size,
+                "max_iterations": config.max_iterations,
+                "learning_rate": config.learning_rate,
+                "sigma": config.sigma
+            },
+            "history": history,
+            "final_fitness": history[-1],
+            "improvement": history[-1] - history[0]
+        }, f, indent=2)
+    
+    console.print("[green]💾 Saved ES weight evolution results to results/evolution/[/green]")
+    
+    return history
 
 
 # =============================================================================
@@ -106,6 +143,22 @@ def demo_cmaes_hyperparams():
     console.print(f"[green]Optimal hyperparameters:[/green]")
     for k, v in best_params.items():
         console.print(f"  {k}: {v:.6f}")
+    
+    # Save hyperparameter optimization results
+    with open("results/evolution/cmaes_hyperparams.json", "w") as f:
+        json.dump({
+            "param_bounds": param_bounds,
+            "best_params": best_params,
+            "target_params": {
+                "learning_rate": 3e-4,
+                "dropout": 0.1,
+                "expansion": 4.0
+            }
+        }, f, indent=2)
+    
+    console.print("[green]💾 Saved CMA-ES hyperparameter results to results/evolution/[/green]")
+    
+    return best_params
 
 
 # =============================================================================
@@ -121,6 +174,17 @@ def demo_ga_operators():
     console.print("[green]Best Operator Library:[/green]")
     for i, op in enumerate(best_library):
         console.print(f"  Operator {i}: {' -> '.join(op)}")
+    
+    # Save operator library
+    with open("results/evolution/ga_operator_library.json", "w") as f:
+        json.dump({
+            "best_library": [list(op) for op in best_library],
+            "description": "Evolved operator library for ARC tasks"
+        }, f, indent=2)
+    
+    console.print("[green]💾 Saved GA operator library to results/evolution/[/green]")
+    
+    return best_library
 
 
 # =============================================================================
@@ -132,8 +196,25 @@ if __name__ == "__main__":
     console.print("This demonstrates gradient-free optimization methods.\n")
     
     # Run demos
-    demo_es_weights()
-    demo_cmaes_hyperparams()
-    demo_ga_operators()
+    es_history = demo_es_weights()
+    best_params = demo_cmaes_hyperparams()
+    best_library = demo_ga_operators()
+    
+    # Create summary report
+    summary = {
+        "evolution_summary": {
+            "es_weight_evolution": {
+                "final_fitness": es_history[-1],
+                "improvement": es_history[-1] - es_history[0],
+                "generations": len(es_history)
+            },
+            "cmaes_hyperparams": best_params,
+            "ga_operator_count": len(best_library)
+        }
+    }
+    
+    with open("results/evolution/evolution_summary.json", "w") as f:
+        json.dump(summary, f, indent=2)
     
     console.print("\n[bold green]✓ All demos completed![/bold green]")
+    console.print("[green]📊 Check results/evolution/ for all outputs and visualizations[/green]")

@@ -35,11 +35,15 @@ def main(cfg: Optional[TrainingConfig] = None):
     # Data
     if cfg.dataset_type == "text":
         # Use first dataset name as the target text dataset
-        dataset_name = cfg.dataset_names[0] if cfg.dataset_names else "tinyshakespeare"
+        if not cfg.dataset_names:
+            cfg.dataset_names = ["tinyshakespeare"]
+        dataset_name = cfg.dataset_names[0]
         loaders, vocab_size = get_text_loaders(dataset_name, cfg.batch_size, cfg.seq_len, num_workers=cfg.num_workers)
         num_classes = vocab_size
         # Override feature_dim if needed? No, feature_dim is model dim.
     else:
+        if not cfg.dataset_names:
+            cfg.dataset_names = ["mnist", "fashionmnist"]
         loaders, class_counts = get_multimnist_loaders(cfg.dataset_names, cfg.batch_size, num_workers=cfg.num_workers)
         num_classes = max(class_counts.values())
     

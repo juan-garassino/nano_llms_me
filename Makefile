@@ -13,7 +13,7 @@ demo-shakespeare:
 # Run the Evolutionary Strategies demo
 demo-evolution:
 	@echo "🧬 Running Evolutionary Strategies Demo..."
-	python3 demo_evolution.py
+	python3 examples/demo_evolution.py
 
 # Run the CLIP training demo (vision-language)
 demo-clip:
@@ -33,12 +33,12 @@ demo-multimodal:
 # Run the Phase Transformer Enhancements demo (Hybrid Wavelet, Adaptive Sparsity, FourierCLIP)
 demo-phase:
 	@echo "🌊 Running Phase Transformer Enhancements Demo..."
-	python3 demo_phase_enhancements.py
+	python3 examples/demo_phase_enhancements.py
 
 # Benchmark SFPT vs Standard Transformer
 benchmark:
 	@echo "🏆 Running SFPT vs Transformer Benchmark..."
-	python3 benchmark_sfpt_vs_transformer.py
+	python3 benchmarks/benchmark_sfpt_vs_transformer.py
 
 # Clean up training outputs
 clean:
@@ -46,4 +46,6 @@ clean:
 	rm -rf training_outputs/
 	rm -rf integrated_results/
 	rm -rf results/
+	rm -rf sfpt_tinystories/
+	rm -rf true_phase_text/
 	rm -f *.log

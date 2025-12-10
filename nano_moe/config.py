@@ -11,10 +11,10 @@ class TrainingConfig:
     hidden_dim: int = 256
     # Data
     dataset_type: str = "text" # "image" or "text" or "arc"
-    dataset_names: list = None # ["mnist", "fashionmnist"] or ["wikitext"]
+    dataset_names: list = field(default_factory=lambda: ["tinyshakespeare"]) # ["mnist", "fashionmnist"] or ["wikitext"]
     batch_size: int = 32 # Reduced for text sequence length
     seq_len: int = 128 # For text
-    save_dir: str = "integrated_results"
+    save_dir: str = "results/shakespeare"
     num_workers: int = 0
     
     # Model

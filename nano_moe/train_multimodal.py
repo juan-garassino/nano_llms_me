@@ -199,7 +199,7 @@ class ExtendedMultimodal(nn.Module):
         """Compute all 4 losses jointly."""
         # Encodings
         img_emb = self.img_enc(imgs)
-        txt_emb = self.txt_enc(enc_tok) if isinstance(enc_tok, list) else self.txt_enc.forward(enc_tok)
+        txt_emb = self.txt_enc(enc_tok)
         
         # Four losses
         l_clip, temp = self.contrastive_loss(img_emb, txt_emb)
